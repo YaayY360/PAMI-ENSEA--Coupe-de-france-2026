@@ -25,7 +25,7 @@ relecture règlement : VS,YG
 
 capteur ultrason : JBL,EEB
 
-capteur suiveur de ligne : EEB,YG
+capteur suiveur de ligne : EEB,YG,MN
 
 modèle 3D V1 : YG,JBL,IC,VS 
 
