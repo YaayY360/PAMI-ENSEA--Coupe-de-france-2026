@@ -4,19 +4,19 @@
 > 
 > **Membres de l'équipe :**
 > 
-> Yanis GRAVE
+> Yanis GRAVE (YG)(1A)
 > 
-> Jean-Bosco LINOT
+> Jean-Bosco LINOT (JBL)(1A)
 > 
-> Valentin SURESHKUMAR
+> Valentin SURESHKUMAR (VS)(1A)
 > 
-> Mouaad NEJJARI
+> Mouaad NEJJARI (MN)(1B)
 > 
-> Iftene CHERFI
+> Iftene CHERFI (IC)(1A)
 >
-> Elias EL BAROUD
+> Elias EL BAROUD (EEB)(1A)
 >
-> Lucas GARCIA
+> Lucas GARCIA (LG)(1A)
 ---
 
 ##  Tasks 
