@@ -16,5 +16,5 @@
 >
 > Elias EL BAROUD
 >
-> Lucas Garcia
+> Lucas GARCIA
 ---
