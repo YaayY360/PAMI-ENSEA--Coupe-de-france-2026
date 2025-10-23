@@ -12,5 +12,9 @@
 > 
 > Mouaad NEJJARI
 > 
-> iftene CHERFI
+> Iftene CHERFI
+>
+> Elias EL BAROUD
+>
+> Lucas Garcia
 ---
