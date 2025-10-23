@@ -1,4 +1,4 @@
-# 🔧 Coupe de france de robotique 2026 - PAMI ENSEA 🔩
+# 🔧 Coupe de france de robotique 2026 - PAMI ENSEA 
 
 > **Objectif :** Conception et fabrication d'un robot PAMI (Petit Automate Motorisé Indépendant) respectant les modalités attendues pour la coupe de france de robotique 2026.
 > 
