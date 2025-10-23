@@ -22,8 +22,13 @@
 ##  Tasks 
 
 relecture règlement : VS,YG
+
 capteur ultrason : JBL,EEB
+
 capteur suiveur de ligne : EEB 
+
 modèle 3D V1 : YG,JBL,IC,VS 
+
 moteurs : MN
+
 système direction/mécanique : VS, EEB
