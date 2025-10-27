@@ -19,7 +19,7 @@
 > Lucas GARCIA (LG)(1A)
 ---
 
-##  Tasks 
+##  Tasks ✅
 
 relecture règlement : VS,YG
 
