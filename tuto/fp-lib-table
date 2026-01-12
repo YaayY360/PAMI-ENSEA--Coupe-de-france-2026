@@ -1,0 +1,5 @@
+(fp_lib_table
+  (version 7)
+  (lib (name "NUCLEO-L476RG")(type "KiCad")(uri "C:/Users/Mo3d/Desktop/Librairies KICAD/NUCLEO-L476RG")(options "")(descr ""))
+  (lib (name "L293D")(type "KiCad")(uri "C:/Users/Mo3d/Desktop/Librairies KICAD/L293D")(options "")(descr ""))
+)
