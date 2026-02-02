@@ -19,16 +19,3 @@
 > Alexandre MALEPART (AM) (1B 1G3)
 ---
 
-##  Tasks ✅
-
-relecture règlement : VS,YG
-
-capteur ultrason : JBL,EEB
-
-capteur suiveur de ligne : EEB,YG,MN
-
-modèle 3D V1 : YG,JBL,IC,VS 
-
-moteurs : MN
-
-système direction/mécanique : VS, EEB
