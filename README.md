@@ -1,21 +1,21 @@
 # 🔧 Coupe de france de robotique 2026 - PAMI ENSEA 
 
-> **Objectif :** Conception et fabrication d'un robot PAMI (Petit Automate Motorisé Indépendant) respectant les modalités attendues pour la coupe de france de robotique 2026.
+> **Objectif :** Conception et fabrication d'un robot PAMI (Petit Actionneur Motorisé Indépendant) respectant les modalités attendues pour la coupe de france de robotique 2026.
 > 
 > **Membres de l'équipe :**
 > 
-> Yanis GRAVE (YG)(1A 1G1)
+> CHERFI Iftene (1G1)
 > 
-> Jean-Bosco LINOT (JBL)(1A 1G1)
+> EL BAROUD Elias (1G1)
 > 
-> Valentin SURESHKUMAR (VS)(1A 1G1)
+> GRAVE Yanis (1G1)
 > 
-> Mouaad NEJJARI (MN)(1B 1G3)
+> LINOT Jean-Bosco (1G1)
 > 
-> Iftene CHERFI (IC)(1A 1G1)
+> MALEPART Alexandre (1G3)
 >
-> Elias EL BAROUD (EEB)(1A 1G1)
+> NEJJARI Mouaad (1G3)
 >
-> Alexandre MALEPART (AM) (1B 1G3)
+> SURESHKUMAR Valentin (1G1)
 ---
 
