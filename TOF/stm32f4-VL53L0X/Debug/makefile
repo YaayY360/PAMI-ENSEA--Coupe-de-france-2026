@@ -60,8 +60,8 @@ all: main-build
 main-build: stm32f4-VL53L0X.elf secondary-outputs
 
 # Tool invocations
-stm32f4-VL53L0X.elf stm32f4-VL53L0X.map: $(OBJS) $(USER_OBJS) C:\Users\jeanl\OneDrive\Documents\TOF\VL53L0X---STM32-HAL\stm32f4-VL53L0X-example\stm32f4-VL53L0X\STM32F411RETX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "stm32f4-VL53L0X.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\jeanl\OneDrive\Documents\TOF\VL53L0X---STM32-HAL\stm32f4-VL53L0X-example\stm32f4-VL53L0X\STM32F411RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="stm32f4-VL53L0X.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+stm32f4-VL53L0X.elf stm32f4-VL53L0X.map: $(OBJS) $(USER_OBJS) C:\Users\alexa\Documents\pami\PAMI-ENSEA--Coupe-de-france-2026\TOF\stm32f4-VL53L0X\STM32F411RETX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "stm32f4-VL53L0X.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\alexa\Documents\pami\PAMI-ENSEA--Coupe-de-france-2026\TOF\stm32f4-VL53L0X\STM32F411RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="stm32f4-VL53L0X.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
