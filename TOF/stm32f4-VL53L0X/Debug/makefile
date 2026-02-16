@@ -34,34 +34,34 @@ $(wildcard ../makefile.init) \
 $(wildcard ../makefile.targets) \
 
 
-BUILD_ARTIFACT_NAME := stm32f4-VL53L0X
+BUILD_ARTIFACT_NAME := code_tof_F411RE
 BUILD_ARTIFACT_EXTENSION := elf
 BUILD_ARTIFACT_PREFIX :=
 BUILD_ARTIFACT := $(BUILD_ARTIFACT_PREFIX)$(BUILD_ARTIFACT_NAME)$(if $(BUILD_ARTIFACT_EXTENSION),.$(BUILD_ARTIFACT_EXTENSION),)
 
 # Add inputs and outputs from these tool invocations to the build variables 
 EXECUTABLES += \
-stm32f4-VL53L0X.elf \
+code_tof_F411RE.elf \
 
 MAP_FILES += \
-stm32f4-VL53L0X.map \
+code_tof_F411RE.map \
 
 SIZE_OUTPUT += \
 default.size.stdout \
 
 OBJDUMP_LIST += \
-stm32f4-VL53L0X.list \
+code_tof_F411RE.list \
 
 
 # All Target
 all: main-build
 
 # Main-build Target
-main-build: stm32f4-VL53L0X.elf secondary-outputs
+main-build: code_tof_F411RE.elf secondary-outputs
 
 # Tool invocations
-stm32f4-VL53L0X.elf stm32f4-VL53L0X.map: $(OBJS) $(USER_OBJS) C:\Users\jeanl\OneDrive\Documents\TOF\VL53L0X---STM32-HAL\stm32f4-VL53L0X-example\stm32f4-VL53L0X\STM32F411RETX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "stm32f4-VL53L0X.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\jeanl\OneDrive\Documents\TOF\VL53L0X---STM32-HAL\stm32f4-VL53L0X-example\stm32f4-VL53L0X\STM32F411RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="stm32f4-VL53L0X.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+code_tof_F411RE.elf code_tof_F411RE.map: $(OBJS) $(USER_OBJS) /home/fifty/github_depot/PAMI-ENSEA--Coupe-de-france-2026/TOF/stm32f4-VL53L0X/STM32F411RETX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "code_tof_F411RE.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"/home/fifty/github_depot/PAMI-ENSEA--Coupe-de-france-2026/TOF/stm32f4-VL53L0X/STM32F411RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="code_tof_F411RE.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
@@ -70,14 +70,14 @@ default.size.stdout: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
 	@echo 'Finished building: $@'
 	@echo ' '
 
-stm32f4-VL53L0X.list: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-objdump -h -S $(EXECUTABLES) > "stm32f4-VL53L0X.list"
+code_tof_F411RE.list: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-objdump -h -S $(EXECUTABLES) > "code_tof_F411RE.list"
 	@echo 'Finished building: $@'
 	@echo ' '
 
 # Other Targets
 clean:
-	-$(RM) default.size.stdout stm32f4-VL53L0X.elf stm32f4-VL53L0X.list stm32f4-VL53L0X.map
+	-$(RM) code_tof_F411RE.elf code_tof_F411RE.list code_tof_F411RE.map default.size.stdout
 	-@echo ' '
 
 secondary-outputs: $(SIZE_OUTPUT) $(OBJDUMP_LIST)
