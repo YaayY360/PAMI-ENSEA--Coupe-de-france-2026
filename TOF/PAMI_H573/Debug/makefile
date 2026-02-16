@@ -60,8 +60,8 @@ all: main-build
 main-build: PAMI_H573.elf secondary-outputs
 
 # Tool invocations
-PAMI_H573.elf PAMI_H573.map: $(OBJS) $(USER_OBJS) C:\Users\jeanl\STM32CubeIDE\workspace_1.19.0\PAMI_H573\STM32H573RITX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "PAMI_H573.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m33 -T"C:\Users\jeanl\STM32CubeIDE\workspace_1.19.0\PAMI_H573\STM32H573RITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="PAMI_H573.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+PAMI_H573.elf PAMI_H573.map: $(OBJS) $(USER_OBJS) /home/fifty/github_depot/PAMI-ENSEA--Coupe-de-france-2026/TOF/PAMI_H573/STM32H573RITX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "PAMI_H573.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m33 -T"/home/fifty/github_depot/PAMI-ENSEA--Coupe-de-france-2026/TOF/PAMI_H573/STM32H573RITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="PAMI_H573.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

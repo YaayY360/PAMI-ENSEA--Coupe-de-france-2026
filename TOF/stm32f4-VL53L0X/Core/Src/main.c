@@ -1,4 +1,4 @@
-/* USER CODE BEGIN Header */
+git/* USER CODE BEGIN Header */
 /**
  ******************************************************************************
  * @file           : main.c
@@ -152,7 +152,7 @@ int main(void)
 		//printf("cordialemnt connard");
 		distance = readRangeSingleMillimeters(&distanceStr);
 
-		printf( "Distance: %d\r\n", distance);
+		printf( "Distance: %d\r\n", distance,"mm");
 
 		HAL_UART_Transmit(&huart2, (uint8_t*) msgBuffer, sizeof(msgBuffer), 50);
 

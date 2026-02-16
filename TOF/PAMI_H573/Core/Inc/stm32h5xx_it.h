@@ -64,4 +64,4 @@ void SysTick_Handler(void);
 }
 #endif
 
-#endif /* __STM32F4xx_IT_H */
+#endif /* __STM32H5xx_IT_H */

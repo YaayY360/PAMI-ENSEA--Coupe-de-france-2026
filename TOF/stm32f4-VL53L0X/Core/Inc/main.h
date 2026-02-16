@@ -28,8 +28,8 @@ extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
-#include "stm32h5xx_hal.h"
-#include "stm32h5xx_it.h"
+#include "stm32f4xx_hal.h"
+#include "stm32f4xx_it.h"
 #include "VL53L0X.h"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */

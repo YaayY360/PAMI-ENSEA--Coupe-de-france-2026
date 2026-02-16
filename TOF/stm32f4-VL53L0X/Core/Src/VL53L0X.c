@@ -19,7 +19,7 @@ uint8_t g_stopVariable; // read by init and used when starting measurement; is S
 uint32_t g_measTimBudUs;
 
 #define I2C_TIMEOUT 100 // I2C timeout in ms
-#define I2C_READ 1
+#define I2C_READ 1((((
 #define I2C_WRITE 0
 I2C_HandleTypeDef VL53L0X_I2C_Handler; // I2C handler
 uint8_t msgBuffer[4];
@@ -165,7 +165,7 @@ bool initVL53L0X(bool io_2v8, I2C_HandleTypeDef *handler){
 
   // VL53L0X_DataInit() end
 
-  // VL53L0X_StaticInit() begin
+  // VL53L0X_StaticInit() begin((((
 
   uint8_t spad_count;
   bool spad_type_is_aperture;
