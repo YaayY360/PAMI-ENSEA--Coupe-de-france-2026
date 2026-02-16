@@ -1,0 +1,4 @@
+../Core/Src/mcp3208_line.c:8:17:Read_Single_Channel	1
+../Core/Src/mcp3208_line.c:25:6:Line_Init	1
+../Core/Src/mcp3208_line.c:37:6:Line_ReadAll	2
+../Core/Src/mcp3208_line.c:47:5:Line_GetPosition	4
