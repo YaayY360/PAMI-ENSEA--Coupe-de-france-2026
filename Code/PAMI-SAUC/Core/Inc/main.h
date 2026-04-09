@@ -82,7 +82,6 @@ void Error_Handler(void);
 #define XST_GPIO_Port GPIOA
 #define GPIO1_Pin GPIO_PIN_12
 #define GPIO1_GPIO_Port GPIOA
-#define GPIO1_EXTI_IRQn EXTI12_IRQn
 #define LED1_Pin GPIO_PIN_15
 #define LED1_GPIO_Port GPIOA
 #define LED2_Pin GPIO_PIN_10

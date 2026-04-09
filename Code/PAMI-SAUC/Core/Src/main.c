@@ -21,10 +21,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include <stdbool.h>
-#include <stdio.h>
-#include <mcp3208_line.h>
-//#include <VL53L0X.h>
+#include "utils.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -34,7 +31,7 @@ enum etat_jeu { OFF, AVANT_JEU, DEPLACEMENT, ANIMATION };
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-#define VITESSE_MOTEUR 2000
+
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -58,8 +55,10 @@ UART_HandleTypeDef huart2;
 
 /* USER CODE BEGIN PV */
 enum etat_jeu etape = OFF;
+statInfo_t_VL53L0X distanceStr;
 LineSensor_t lineFollower;
 uint8_t detection_IR;
+uint16_t distance;
 bool M1 = 1, M2 = 1;
 /* USER CODE END PV */
 
@@ -105,7 +104,9 @@ int main(void)
 
   /* USER CODE BEGIN 1 */
   Line_Init(&lineFollower, &hspi2, SPI2_CS_GPIO_Port, SPI2_CS_Pin, 8);
+  initVL53L0X(1, &hi2c3);
   printf("Calibration Capteurs Ligne (0-4095)\r\n");
+
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -138,6 +139,10 @@ int main(void)
   HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_2); HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_3);
   HAL_GPIO_WritePin(GPIOC, A_IN1_Pin, 1); HAL_GPIO_WritePin(GPIOC, A_IN2_Pin, 0);
   HAL_GPIO_WritePin(GPIOC, B_IN1_Pin, 1); HAL_GPIO_WritePin(GPIOC, B_IN2_Pin, 0);
+	setSignalRateLimit(200);
+	setVcselPulsePeriod(VcselPeriodPreRange, 10);
+	setVcselPulsePeriod(VcselPeriodFinalRange, 14);
+	setMeasurementTimingBudget(300 * 1000UL);
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -154,22 +159,33 @@ int main(void)
 		  break;
 	  case DEPLACEMENT :
 		  Line_ReadAll(&lineFollower);
-		  printf("C1:%d C2:%d C3:%d C4:%d C5:%d C6:%d C7:%d C8:%d\r\n",
+		  distance = readRangeSingleMillimeters(&distanceStr);
+		  /*printf("C1:%d C2:%d C3:%d C4:%d C5:%d C6:%d C7:%d C8:%d\r\n",
 		         lineFollower.sensorValues[1], lineFollower.sensorValues[2],
 		         lineFollower.sensorValues[3], lineFollower.sensorValues[4],
 		         lineFollower.sensorValues[5], lineFollower.sensorValues[6],
-		         lineFollower.sensorValues[7], lineFollower.sensorValues[0]);
+		         lineFollower.sensorValues[7], lineFollower.sensorValues[0]);*/
 		  detection_IR = (lineFollower.sensorValues[1] << 7) | (lineFollower.sensorValues[2] << 6) |
 				         (lineFollower.sensorValues[3] << 5) | (lineFollower.sensorValues[4] << 4) |
 				         (lineFollower.sensorValues[5] << 3) | (lineFollower.sensorValues[6] << 2) |
 				         (lineFollower.sensorValues[7] << 1) | (lineFollower.sensorValues[0] << 0) ;
 		  switch(detection_IR)
 		  {
+		  case 0b00011000 :
+			  //
+			  break;
 		  case 0b00000000 :
+			  //
+			  break;
+		  case 0b00001000 :
+			  //
+			  break;
+		  case 0b00010000 :
+			  //
 			  break;
 		  }
-		  __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_3, M1*VITESSE_MOTEUR); // Moteur de droite
-		  __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_2, M2*VITESSE_MOTEUR); // Moteur de gauche
+		  Moteurs(M1,M2);
+		  if(distance < 10) { M1 = M2 = 0; }
 		  break;
 	  case ANIMATION :
 		  // Fonction pour effectuer le salut avec le XL320
@@ -738,7 +754,7 @@ static void MX_GPIO_Init(void)
   HAL_GPIO_WritePin(SPI2_CS_GPIO_Port, SPI2_CS_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOA, XST_Pin|LED1_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pins : BTN1_Pin BTN2_Pin BTN3_Pin */
   GPIO_InitStruct.Pin = BTN1_Pin|BTN2_Pin|BTN3_Pin;
@@ -762,29 +778,20 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(SPI2_CS_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pin : XST_Pin */
-  GPIO_InitStruct.Pin = XST_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  HAL_GPIO_Init(XST_GPIO_Port, &GPIO_InitStruct);
-
-  /*Configure GPIO pin : GPIO1_Pin */
-  GPIO_InitStruct.Pin = GPIO1_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  HAL_GPIO_Init(GPIO1_GPIO_Port, &GPIO_InitStruct);
-
-  /*Configure GPIO pin : LED1_Pin */
-  GPIO_InitStruct.Pin = LED1_Pin;
+  /*Configure GPIO pins : XST_Pin LED1_Pin */
+  GPIO_InitStruct.Pin = XST_Pin|LED1_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(LED1_GPIO_Port, &GPIO_InitStruct);
+  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+
+  /*Configure GPIO pin : GPIO1_Pin */
+  GPIO_InitStruct.Pin = GPIO1_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  HAL_GPIO_Init(GPIO1_GPIO_Port, &GPIO_InitStruct);
 
   /* EXTI interrupt init*/
-  HAL_NVIC_SetPriority(EXTI12_IRQn, 0, 0);
-  HAL_NVIC_EnableIRQ(EXTI12_IRQn);
-
   HAL_NVIC_SetPriority(EXTI13_IRQn, 0, 0);
   HAL_NVIC_EnableIRQ(EXTI13_IRQn);
 

@@ -199,20 +199,6 @@ void SysTick_Handler(void)
 /******************************************************************************/
 
 /**
-  * @brief This function handles EXTI Line12 interrupt.
-  */
-void EXTI12_IRQHandler(void)
-{
-  /* USER CODE BEGIN EXTI12_IRQn 0 */
-
-  /* USER CODE END EXTI12_IRQn 0 */
-  HAL_GPIO_EXTI_IRQHandler(GPIO1_Pin);
-  /* USER CODE BEGIN EXTI12_IRQn 1 */
-
-  /* USER CODE END EXTI12_IRQn 1 */
-}
-
-/**
   * @brief This function handles EXTI Line13 interrupt.
   */
 void EXTI13_IRQHandler(void)

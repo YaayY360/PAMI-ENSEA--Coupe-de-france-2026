@@ -28,10 +28,10 @@ HAL_StatusTypeDef i2cStat;
 //---------------------------------------------------------
 // Locally used functions (private)
 //---------------------------------------------------------
-bool getSpadInfo(uint8_t *count, bool *type_is_aperture);
+uint8_t getSpadInfo(uint8_t *count, uint8_t *type_is_aperture);
 void getSequenceStepEnables(SequenceStepEnables * enables);
 void getSequenceStepTimeouts(SequenceStepEnables const * enables, SequenceStepTimeouts * timeouts);
-bool performSingleRefCalibration(uint8_t vhv_init_byte);
+uint8_t performSingleRefCalibration(uint8_t vhv_init_byte);
 static uint16_t decodeTimeout(uint16_t value);
 static uint16_t encodeTimeout(uint16_t timeout_mclks);
 static uint32_t timeoutMclksToMicroseconds(uint16_t timeout_period_mclks, uint8_t vcsel_period_pclks);
@@ -125,7 +125,7 @@ uint8_t getAddress_VL53L0X() {
 // enough unless a cover glass is added.
 // If io_2v8 (optional) is true or not given, the sensor is configured for 2V8
 // mode.
-bool initVL53L0X(bool io_2v8, I2C_HandleTypeDef *handler){
+uint8_t initVL53L0X(uint8_t io_2v8, I2C_HandleTypeDef *handler){
   // VL53L0X_DataInit() begin
 
   // Handler
@@ -168,7 +168,7 @@ bool initVL53L0X(bool io_2v8, I2C_HandleTypeDef *handler){
   // VL53L0X_StaticInit() begin
 
   uint8_t spad_count;
-  bool spad_type_is_aperture;
+  uint8_t spad_type_is_aperture;
   if (!getSpadInfo(&spad_count, &spad_type_is_aperture)) { return false; }
 
   // The SPAD map (RefGoodSpadMap) is read by VL53L0X_get_info_from_device() in
@@ -362,7 +362,7 @@ bool initVL53L0X(bool io_2v8, I2C_HandleTypeDef *handler){
 // seems to increase the likelihood of getting an inaccurate reading because of
 // unwanted reflections from objects other than the intended target.
 // Defaults to 0.25 MCPS as initialized by the ST API and this library.
-bool setSignalRateLimit(float limit_Mcps)
+uint8_t setSignalRateLimit(float limit_Mcps)
 {
   if (limit_Mcps < 0 || limit_Mcps > 511.99) { return false; }
 
@@ -384,7 +384,7 @@ float getSignalRateLimit(void)
 // factor of N decreases the range measurement standard deviation by a factor of
 // sqrt(N). Defaults to about 33 milliseconds; the minimum is 20 ms.
 // based on VL53L0X_set_measurement_timing_budget_micro_seconds()
-bool setMeasurementTimingBudget(uint32_t budget_us)
+uint8_t setMeasurementTimingBudget(uint32_t budget_us)
 {
   SequenceStepEnables enables;
   SequenceStepTimeouts timeouts;
@@ -527,7 +527,7 @@ uint32_t getMeasurementTimingBudget(void)
 //  pre:  12 to 18 (initialized default: 14)
 //  final: 8 to 14 (initialized default: 10)
 // based on VL53L0X_set_vcsel_pulse_period()
-bool setVcselPulsePeriod(vcselPeriodType type, uint8_t period_pclks)
+uint8_t setVcselPulsePeriod(vcselPeriodType type, uint8_t period_pclks)
 {
   uint8_t vcsel_period_reg = encodeVcselPeriod(period_pclks);
 
@@ -841,9 +841,9 @@ uint16_t readRangeSingleMillimeters( statInfo_t_VL53L0X *extraStats ) {
 
 // Did a timeout occur in one of the read functions since the last call to
 // timeoutOccurred()?
-bool timeoutOccurred()
+uint8_t timeoutOccurred()
 {
-  bool tmp = g_isTimeout;
+	uint8_t tmp = g_isTimeout;
   g_isTimeout = false;
   return tmp;
 }
@@ -861,7 +861,7 @@ uint16_t getTimeout(void){
 // Get reference SPAD (single photon avalanche diode) count and type
 // based on VL53L0X_get_info_from_device(),
 // but only gets reference SPAD count and type
-bool getSpadInfo(uint8_t * count, bool * type_is_aperture)
+uint8_t getSpadInfo(uint8_t * count, uint8_t * type_is_aperture)
 {
   uint8_t tmp;
 
@@ -1005,7 +1005,7 @@ uint32_t timeoutMicrosecondsToMclks(uint32_t timeout_period_us, uint8_t vcsel_pe
 
 
 // based on VL53L0X_perform_single_ref_calibration()
-bool performSingleRefCalibration(uint8_t vhv_init_byte)
+uint8_t performSingleRefCalibration(uint8_t vhv_init_byte)
 {
   writeReg(SYSRANGE_START, 0x01 | vhv_init_byte); // VL53L0X_REG_SYSRANGE_MODE_START_STOP
 

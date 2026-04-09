@@ -1,13 +1,11 @@
-/*
- * utils.h
- *
- *  Created on: Apr 7, 2026
- *      Author: y360
- */
+#include <stm32h5xx.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include "mcp3208_line.h"
+#include "VL53L0X.h"
 
-#ifndef INC_UTILS_H_
-#define INC_UTILS_H_
+#define VITESSE_MOTEUR 2000
 
+extern TIM_HandleTypeDef htim1;
 
-
-#endif /* INC_UTILS_H_ */
+void Moteurs(bool M1, bool M2);
