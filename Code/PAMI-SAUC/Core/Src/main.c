@@ -165,6 +165,9 @@ int main(void)
 		         lineFollower.sensorValues[3], lineFollower.sensorValues[4],
 		         lineFollower.sensorValues[5], lineFollower.sensorValues[6],
 		         lineFollower.sensorValues[7], lineFollower.sensorValues[0]);*/
+		  for(int i=0; i<8; i++)
+			  if(lineFollower.sensorValues[i]>3000) lineFollower.sensorValues[i] = 1;
+			  else                                  lineFollower.sensorValues[i] = 0;
 		  detection_IR = (lineFollower.sensorValues[1] << 7) | (lineFollower.sensorValues[2] << 6) |
 				         (lineFollower.sensorValues[3] << 5) | (lineFollower.sensorValues[4] << 4) |
 				         (lineFollower.sensorValues[5] << 3) | (lineFollower.sensorValues[6] << 2) |
@@ -172,16 +175,16 @@ int main(void)
 		  switch(detection_IR)
 		  {
 		  case 0b00011000 :
-			  //
+			  M1 = M2 = 1;
 			  break;
 		  case 0b00000000 :
-			  //
+			  M1 = M2 = 0;
 			  break;
 		  case 0b00001000 :
-			  //
+			  M1 = 1; M2 = 0;
 			  break;
 		  case 0b00010000 :
-			  //
+			  M1 = 0; M2 = 1;
 			  break;
 		  }
 		  Moteurs(M1,M2);
