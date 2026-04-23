@@ -73,6 +73,7 @@ static void MX_TIM3_Init(void);
 static void MX_TIM4_Init(void);
 static void MX_TIM8_Init(void);
 static void MX_USART2_UART_Init(void);
+static void MX_ICACHE_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -104,7 +105,7 @@ int main(void)
 
   /* USER CODE BEGIN 1 */
   Line_Init(&lineFollower, &hspi2, SPI2_CS_GPIO_Port, SPI2_CS_Pin, 8);
-  initVL53L0X(1, &hi2c3);
+  //initVL53L0X(1, &hi2c3);
   printf("Calibration Capteurs Ligne (0-4095)\r\n");
 
   /* USER CODE END 1 */
@@ -135,6 +136,7 @@ int main(void)
   MX_TIM4_Init();
   MX_TIM8_Init();
   MX_USART2_UART_Init();
+  MX_ICACHE_Init();
   /* USER CODE BEGIN 2 */
   HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_2); HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_3);
   HAL_GPIO_WritePin(GPIOC, A_IN1_Pin, 1); HAL_GPIO_WritePin(GPIOC, A_IN2_Pin, 0);
@@ -142,14 +144,19 @@ int main(void)
 	setSignalRateLimit(200);
 	setVcselPulsePeriod(VcselPeriodPreRange, 10);
 	setVcselPulsePeriod(VcselPeriodFinalRange, 14);
-	setMeasurementTimingBudget(300 * 1000UL);
+	//setMeasurementTimingBudget(300 * 1000UL);
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	  switch(etape)
+	  /*int test=0;
+	  HAL_GPIO_ReadPin(BTN1_GPIO_Port , BTN1_Pin);
+	  test=HAL_GPIO_ReadPin(BTN1_GPIO_Port , BTN1_Pin);
+	  */
+
+	  /*switch(etape)
 	  {
 	  case OFF :
 		  break;
@@ -160,11 +167,11 @@ int main(void)
 	  case DEPLACEMENT :
 		  Line_ReadAll(&lineFollower);
 		  distance = readRangeSingleMillimeters(&distanceStr);
-		  /*printf("C1:%d C2:%d C3:%d C4:%d C5:%d C6:%d C7:%d C8:%d\r\n",
+		  printf("C1:%d C2:%d C3:%d C4:%d C5:%d C6:%d C7:%d C8:%d\r\n",
 		         lineFollower.sensorValues[1], lineFollower.sensorValues[2],
 		         lineFollower.sensorValues[3], lineFollower.sensorValues[4],
 		         lineFollower.sensorValues[5], lineFollower.sensorValues[6],
-		         lineFollower.sensorValues[7], lineFollower.sensorValues[0]);*/
+		         lineFollower.sensorValues[7], lineFollower.sensorValues[0]);
 		  for(int i=0; i<8; i++)
 			  if(lineFollower.sensorValues[i]>3000) lineFollower.sensorValues[i] = 1;
 			  else                                  lineFollower.sensorValues[i] = 0;
@@ -194,7 +201,7 @@ int main(void)
 		  // Fonction pour effectuer le salut avec le XL320
 		  etape--;
 		  break;
-	  }
+	  }*/
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -229,9 +236,9 @@ void SystemClock_Config(void)
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
   RCC_OscInitStruct.PLL.PLLSource = RCC_PLL1_SOURCE_CSI;
   RCC_OscInitStruct.PLL.PLLM = 1;
-  RCC_OscInitStruct.PLL.PLLN = 129;
+  RCC_OscInitStruct.PLL.PLLN = 32;
   RCC_OscInitStruct.PLL.PLLP = 2;
-  RCC_OscInitStruct.PLL.PLLQ = 2;
+  RCC_OscInitStruct.PLL.PLLQ = 3;
   RCC_OscInitStruct.PLL.PLLR = 2;
   RCC_OscInitStruct.PLL.PLLRGE = RCC_PLL1_VCIRANGE_2;
   RCC_OscInitStruct.PLL.PLLVCOSEL = RCC_PLL1_VCORANGE_WIDE;
@@ -307,6 +314,38 @@ static void MX_I2C3_Init(void)
   /* USER CODE BEGIN I2C3_Init 2 */
 
   /* USER CODE END I2C3_Init 2 */
+
+}
+
+/**
+  * @brief ICACHE Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_ICACHE_Init(void)
+{
+
+  /* USER CODE BEGIN ICACHE_Init 0 */
+
+  /* USER CODE END ICACHE_Init 0 */
+
+  /* USER CODE BEGIN ICACHE_Init 1 */
+
+  /* USER CODE END ICACHE_Init 1 */
+
+  /** Enable instruction cache in 1-way (direct mapped cache)
+  */
+  if (HAL_ICACHE_ConfigAssociativityMode(ICACHE_1WAY) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  if (HAL_ICACHE_Enable() != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN ICACHE_Init 2 */
+
+  /* USER CODE END ICACHE_Init 2 */
 
 }
 
@@ -810,21 +849,24 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
-void HAL_GPIO_EXTI_Rising_Callback(uint16_t GPIO_Pin)
+/*void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
 	switch(GPIO_Pin)
 	{
 	case BTN1_Pin :
-		if(etape == OFF) { etape++; HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, 1); }
+		//if(etape == OFF) { etape++; HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, 1); }
+		HAL_GPIO_TogglePin(LED1_GPIO_Port, LED1_Pin);
 		break;
 	case BTN2_Pin :
 		//
+		HAL_GPIO_TogglePin(LED2_GPIO_Port, LED2_Pin);
 		break;
 	case BTN3_Pin :
 		//
+		HAL_GPIO_TogglePin(LED3_GPIO_Port, LED3_Pin);
 		break;
 	}
-}
+}*/
 /* USER CODE END 4 */
 
 /**

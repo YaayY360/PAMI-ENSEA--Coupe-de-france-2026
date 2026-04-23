@@ -169,7 +169,7 @@ uint8_t initVL53L0X(uint8_t io_2v8, I2C_HandleTypeDef *handler){
 
   uint8_t spad_count;
   uint8_t spad_type_is_aperture;
-  if (!getSpadInfo(&spad_count, &spad_type_is_aperture)) { return false; }
+  if (!getSpadInfo(&spad_count, &spad_type_is_aperture)) { return false; }//ca coince
 
   // The SPAD map (RefGoodSpadMap) is read by VL53L0X_get_info_from_device() in
   // the API, but the same data seems to be more easily readable from
